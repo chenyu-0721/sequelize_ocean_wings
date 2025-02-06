@@ -4,10 +4,43 @@ const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 
+// cors
+const corsOptions = {
+	origin: '*',
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+	credentials: true,
+	optionsSuccessStatus: 200,
+	maxAge: 3600,
+}
+
+app.use((req, res, next) => {
+	const cors = require('cors')(corsOptions)
+
+	cors(req, res, err => {
+		if (err) {
+			console.error('CORS Error:', {
+				origin: req.get('origin'),
+				method: req.method,
+				errorMessage: err.message,
+			})
+
+			return res.status(403).json({
+				status: 'error',
+				message: 'Cross-Origin Request Blocked',
+				details: 'The request origin is not allowed by CORS policy',
+			})
+		}
+		next()
+	})
+})
+
 app.use(express.json())
 
 const productRoute = require('./routes/product')
+const uploadRoute = require('./routes/upload')
 app.use('/api/products', productRoute)
+app.use('/upload', uploadRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
