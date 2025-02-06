@@ -39,8 +39,11 @@ app.use(express.json())
 
 const productRoute = require('./routes/product')
 const uploadRoute = require('./routes/upload')
+const userRoute = require('./routes/user')
+
 app.use('/api/products', productRoute)
 app.use('/upload', uploadRoute)
+app.use('/api/user', userRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
