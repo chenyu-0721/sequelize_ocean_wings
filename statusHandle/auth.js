@@ -57,10 +57,6 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
 		return next(appError(401, '用戶不存在', next))
 	}
 
-	if (currentUser.role !== 'admin') {
-		return next(appError(403, '權限不足', next))
-	}
-
 	// 附加用戶資訊到 req
 	req.user = currentUser
 

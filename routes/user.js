@@ -3,9 +3,10 @@ const { isAuth } = require('../statusHandle/auth')
 const ctrl_users = require('../controllers/controllews_user')
 const router = express.Router()
 
-router.get('/', isAuth, ctrl_users.getUser)
+router.get('/', ctrl_users.getUser)
+router.get('/refresh', isAuth, ctrl_users.getUserAuth)
 
-router.delete('/:id', isAuth, ctrl_users.deleteUser)
+router.delete('/:id', ctrl_users.deleteUser)
 
 router.post('/sign_up', ctrl_users.sign_up)
 

@@ -5,12 +5,13 @@ const appError = require('../statusHandle/appError')
 const handleErrorAsync = require('../statusHandle/handleErrorAsync')
 
 const { generateSendJWT, logout } = require('../statusHandle/auth')
+const { app } = require('firebase-admin')
 
 exports.getUser = async (req, res, next) => {
 	// #swagger.tags = ['user']
 	try {
 		const users = await User.findAll({
-			attributes: { exclude: ['password'] },
+			attributes: { exclude: ['password', 'confirmPassword'] },
 		})
 
 		res.status(200).json({
@@ -19,6 +20,29 @@ exports.getUser = async (req, res, next) => {
 		})
 	} catch (error) {
 		res.status(500).json({ status: 'error' })
+	}
+}
+
+// 取得目前使用者
+exports.getUserAuth = async (req, res, next) => {
+	// #swagger.tags = ['user']
+	try {
+		// 檢查 req.user 是否存在，表示用戶已經登入
+		if (!req.user) {
+			return next(appError(401, '請先登入', next))
+		}
+
+		// 回傳當前用戶的資料
+		res.status(200).json({
+			status: 'success',
+			user: {
+				id: req.user.id,
+				name: req.user.name,
+				role: req.user.role,
+			},
+		})
+	} catch (error) {
+		next(error)
 	}
 }
 
@@ -51,25 +75,25 @@ exports.sign_up = handleErrorAsync(async (req, res, next) => {
 	let { email, password, confirmPassword, name } = req.body
 
 	if (!email || !password || !confirmPassword || !name) {
-		return next(appError(400, '請填寫所有必填欄位', next))
+		return next(appError(400, '請填寫所有必填欄位'))
 	}
 
 	if (password !== confirmPassword) {
-		return next(appError(400, '兩次輸入的密碼不一致', next))
+		return next(appError(400, '兩次輸入的密碼不一致'))
 	}
 
 	if (!validator.isLength(password, { min: 8 })) {
-		return next(appError(400, '密碼長度必須大於8個字元', next))
+		return next(appError(400, '密碼長度必須大於8個字元'))
 	}
 
 	if (!validator.isEmail(email)) {
-		return next(appError(400, '電子郵件格式不正確', next))
+		return next(appError(400, '電子郵件格式不正確'))
 	}
 
 	try {
 		const existingUser = await User.findOne({ where: { email } })
 		if (existingUser) {
-			return next(appError(400, '此電子郵件已被註冊', next))
+			return next(appError(400, '此電子郵件已被註冊'))
 		}
 
 		const hashedPassword = await bcrypt.hash(password, 12)
@@ -95,7 +119,7 @@ exports.sign_up = handleErrorAsync(async (req, res, next) => {
 		})
 	} catch (error) {
 		console.error('註冊失敗:', error)
-		return next(appError(500, '伺服器錯誤，請稍後再試', next))
+		return next(appError(500, '伺服器錯誤，請稍後再試'))
 	}
 })
 

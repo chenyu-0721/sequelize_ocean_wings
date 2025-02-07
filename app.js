@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
@@ -35,15 +36,18 @@ app.use((req, res, next) => {
 	})
 })
 
+app.use(cookieParser())
 app.use(express.json())
 
 const productRoute = require('./routes/product')
 const uploadRoute = require('./routes/upload')
 const userRoute = require('./routes/user')
+const cartItemRoute = require('./routes/cartItem')
 
 app.use('/api/products', productRoute)
 app.use('/upload', uploadRoute)
 app.use('/api/user', userRoute)
+app.use('/api/cartItem', cartItemRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
