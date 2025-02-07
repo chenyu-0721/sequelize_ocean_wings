@@ -61,6 +61,48 @@ exports.addToCart = async (req, res, next) => {
 		res.status(201).json({ message: '成功加入商品', data: newCartItem })
 	} catch (error) {
 		console.error('Error occurred:', error)
-		return res.status(500).json({ message: '伺服器錯誤', error: error.message })
+		res.status(500).json({ message: '伺服器錯誤', error: error.message })
+	}
+}
+
+exports.deleteCartItem = async (req, res) => {
+	try {
+		// #swagger.tags = ['cart']
+		const userId = req.user.id
+		const productId = req.params.productId
+
+		const cartItem = await CartItem.findOne({ where: { user_id: userId, product_id: productId } })
+
+		if (!cartItem) {
+			return res.status(404).json({ message: '找不到商品' })
+		}
+
+		await cartItem.destroy()
+
+		res.status(201).json({ message: '成功刪除商品' })
+	} catch (error) {
+		res.status(500).json({ message: '伺服器錯誤', error: error.message })
+	}
+}
+
+exports.updateCartItemQuantity = async (req, res) => {
+	try {
+		// #swagger.tags = ['cart']
+		const userId = req.user.id
+		const productId = req.params.productId
+		const quantity = parseInt(req.body.quantity)
+
+		const cartItem = await CartItem.findOne({ where: { user_id: userId, product_id: productId } })
+
+		if (!cartItem) {
+			return res.status(404).json({ message: '找不到商品' })
+		}
+
+		cartItem.quantity = quantity
+		await cartItem.save()
+
+		res.status(200).json({ message: '成功更新數量', data: cartItem })
+	} catch (error) {
+		res.status(500).json({ message: '伺服器錯誤', error: error.message })
 	}
 }
