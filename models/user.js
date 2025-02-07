@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			User.hasMany(models.CartItem, {
-				foreignKey: 'user_id', // 這是對應 CartItem 中的 user_id
+				foreignKey: 'user_id', // 對應 CartItem 的 user_id
 			})
 		}
 	}

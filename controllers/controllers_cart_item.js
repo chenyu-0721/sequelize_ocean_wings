@@ -46,19 +46,24 @@ exports.addToCart = async (req, res, next) => {
 			where: { user_id: userId, product_id: productId },
 		})
 
-		if (cartItem) {
-			cartItem.quantity += quantity
-			await cartItem.save()
-			return res.status(200).json({ message: '成功加入商品' })
+		if (product.quantity >= quantity) {
+			if (cartItem) {
+				cartItem.quantity += quantity
+				await cartItem.save()
+
+				return res.status(200).json({ message: '成功加入商品' })
+			}
+
+			const newCartItem = await CartItem.create({
+				user_id: userId,
+				product_id: productId,
+				quantity: quantity,
+			})
+
+			res.status(201).json({ message: '成功加入商品', data: newCartItem })
+		} else {
+			res.status(401).json({ message: '商品不足' })
 		}
-
-		const newCartItem = await CartItem.create({
-			user_id: userId,
-			product_id: productId,
-			quantity: quantity,
-		})
-
-		res.status(201).json({ message: '成功加入商品', data: newCartItem })
 	} catch (error) {
 		console.error('Error occurred:', error)
 		res.status(500).json({ message: '伺服器錯誤', error: error.message })
@@ -96,6 +101,10 @@ exports.updateCartItemQuantity = async (req, res) => {
 
 		if (!cartItem) {
 			return res.status(404).json({ message: '找不到商品' })
+		}
+
+		if (product.quantity < quantity) {
+			return res.status(401).json({ message: '庫存不足' })
 		}
 
 		cartItem.quantity = quantity
