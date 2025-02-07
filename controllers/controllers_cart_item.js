@@ -15,7 +15,15 @@ exports.getCartItems = async (req, res, next) => {
 			return res.status(200).json({ data: [] })
 		}
 
-		res.status(200).json({ data: cartItems })
+		// 處理回傳的資料，僅保留商品名稱、數量、價格等資訊
+		const products = cartItems.map(item => ({
+			productId: item.Product.productId,
+			name: item.Product.name,
+			quantity: item.quantity,
+			price: item.Product.price,
+		}))
+
+		res.status(200).json({ data: products })
 	} catch (error) {
 		next(error)
 	}
@@ -26,8 +34,10 @@ exports.addToCart = async (req, res, next) => {
 		// #swagger.tags = ['cart']
 		const userId = req.user.id
 		const productId = req.params.productId
-		const quantity = parseInt(req.params.quantity)
+		const quantity = parseInt(req.body.quantity)
+
 		const product = await Product.findByPk(productId)
+
 		if (!product) {
 			return res.status(404).json({ message: '找不到商品' })
 		}
@@ -45,11 +55,12 @@ exports.addToCart = async (req, res, next) => {
 		const newCartItem = await CartItem.create({
 			user_id: userId,
 			product_id: productId,
-			quantity,
+			quantity: quantity,
 		})
 
-		res.status(201).json({ message: '成功加入��物��', data: newCartItem })
+		res.status(201).json({ message: '成功加入商品', data: newCartItem })
 	} catch (error) {
-		next(error)
+		console.error('Error occurred:', error)
+		return res.status(500).json({ message: '伺服器錯誤', error: error.message })
 	}
 }

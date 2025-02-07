@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
 			modelName: 'CartItem',
 			tableName: 'cart_items', // 指定資料表名稱
 			underscored: true, // 欄位使用 snake_case（例如：created_at, updated_at）
-			timestamps: false, // 如果你資料表沒有這些時間戳記欄位，設置為 false
+			timestamps: true, // 如果你資料表沒有這些時間戳記欄位，設置為 false
 		},
 	)
 

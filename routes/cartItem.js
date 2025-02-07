@@ -5,6 +5,6 @@ const { isAuth } = require('../statusHandle/auth')
 
 router.get('/', isAuth, ctrl_cartItem.getCartItems)
 
-router.post('/', isAuth, ctrl_cartItem.addToCart)
+router.post('/:productId', isAuth, ctrl_cartItem.addToCart)
 
 module.exports = router
