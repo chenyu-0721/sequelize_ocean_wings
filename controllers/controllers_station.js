@@ -47,3 +47,32 @@ exports.getStation = async (req, res) => {
 		})
 	}
 }
+
+exports.getOneStation = async (req, res) => {
+	// #swagger.tags = ['wave']
+	try {
+		const id = req.params.id
+
+		const wave = await Station.findOne({
+			include: [
+				{
+					model: WeatherData,
+					as: 'weatherData',
+					required: false,
+				},
+			],
+			where: { id: id },
+			distinct: true,
+			order: [['StationID', 'ASC']],
+		})
+
+		res.status(200).json({ data: wave })
+	} catch (error) {
+		console.error('Error in getOneStation:', error)
+		return res.status(500).json({
+			success: false,
+			error: 'Internal Server Error',
+			message: error.message,
+		})
+	}
+}

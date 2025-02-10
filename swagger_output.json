@@ -501,6 +501,31 @@
 					}
 				}
 			}
+		},
+		"/api/wave/{id}": {
+			"get": {
+				"tags": ["wave"],
+				"description": "",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
 		}
 	}
 }
