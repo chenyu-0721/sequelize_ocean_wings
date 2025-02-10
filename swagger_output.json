@@ -472,6 +472,35 @@
 					}
 				}
 			}
+		},
+		"/api/wave/": {
+			"get": {
+				"tags": ["wave"],
+				"description": "",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"type": "string"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
 		}
 	}
 }

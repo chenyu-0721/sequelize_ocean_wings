@@ -44,12 +44,14 @@ const uploadRoute = require('./routes/upload')
 const userRoute = require('./routes/user')
 const cartItemRoute = require('./routes/cartItem')
 const orderRoute = require('./routes/order')
+const waveRoute = require('./routes/station')
 
 app.use('/api/products', productRoute)
 app.use('/upload', uploadRoute)
 app.use('/api/user', userRoute)
 app.use('/api/cartItem', cartItemRoute)
 app.use('/api/order', orderRoute)
+app.use('/api/wave', waveRoute)
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
