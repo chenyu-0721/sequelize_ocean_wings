@@ -5,7 +5,7 @@
 		"title": "REST API",
 		"description": ""
 	},
-	"host": "https://ocean-wings.onrender.com",
+	"host": "ocean-wings.onrender.com",
 	"basePath": "/",
 	"schemes": ["http"],
 	"paths": {
