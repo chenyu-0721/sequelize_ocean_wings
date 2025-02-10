@@ -5,6 +5,7 @@ const { Order, OrderItem, CartItem, Product } = require('../models')
  */
 exports.checkout = async (req, res) => {
 	try {
+		// #swagger.tags = ['order']
 		const userId = req.user.id // 假設從 JWT 或 session 取得 user_id
 
 		// 取得購物車商品
@@ -76,6 +77,7 @@ exports.checkout = async (req, res) => {
  * 📜 取得歷史訂單 API
  */
 exports.history = async (req, res) => {
+	// #swagger.tags = ['order']
 	try {
 		const userId = req.user.id
 

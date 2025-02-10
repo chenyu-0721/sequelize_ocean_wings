@@ -435,6 +435,7 @@
 		},
 		"/api/order/checkout": {
 			"post": {
+				"tags": ["order"],
 				"description": "",
 				"responses": {
 					"200": {
@@ -454,6 +455,7 @@
 		},
 		"/api/order/history": {
 			"get": {
+				"tags": ["order"],
 				"description": "",
 				"responses": {
 					"200": {
