@@ -7,7 +7,7 @@
 	},
 	"host": "ocean-wings.onrender.com",
 	"basePath": "/",
-	"schemes": ["http"],
+	"schemes": ["https"],
 	"paths": {
 		"/api/products/": {
 			"get": {
@@ -44,6 +44,9 @@
 					"200": {
 						"description": "OK"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"500": {
 						"description": "Internal Server Error"
 					}
@@ -55,6 +58,9 @@
 				"responses": {
 					"201": {
 						"description": "Created"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"500": {
 						"description": "Internal Server Error"
@@ -77,6 +83,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
 						"description": "Not Found"
@@ -101,6 +110,9 @@
 					"200": {
 						"description": "OK"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"404": {
 						"description": "Not Found"
 					},
@@ -124,6 +136,9 @@
 					"200": {
 						"description": "OK"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"404": {
 						"description": "Not Found"
 					},
@@ -144,6 +159,9 @@
 					"400": {
 						"description": "Bad Request"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"500": {
 						"description": "Internal Server Error"
 					}
@@ -158,6 +176,9 @@
 					"200": {
 						"description": "OK"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"500": {
 						"description": "Internal Server Error"
 					}
@@ -171,6 +192,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -190,6 +214,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
 						"description": "Not Found"
@@ -230,6 +257,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -256,8 +286,8 @@
 					}
 				],
 				"responses": {
-					"default": {
-						"description": ""
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -269,6 +299,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -280,6 +313,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					}
 				}
 			}
@@ -318,6 +354,9 @@
 					"401": {
 						"description": "Unauthorized"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"404": {
 						"description": "Not Found"
 					},
@@ -340,6 +379,9 @@
 				"responses": {
 					"201": {
 						"description": "Created"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
 						"description": "Not Found"
@@ -379,6 +421,9 @@
 					"401": {
 						"description": "Unauthorized"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"404": {
 						"description": "Not Found"
 					},
@@ -398,6 +443,9 @@
 					"400": {
 						"description": "Bad Request"
 					},
+					"403": {
+						"description": "Forbidden"
+					},
 					"500": {
 						"description": "Internal Server Error"
 					}
@@ -410,6 +458,9 @@
 				"responses": {
 					"200": {
 						"description": "OK"
+					},
+					"403": {
+						"description": "Forbidden"
 					},
 					"404": {
 						"description": "Not Found"
