@@ -1,5 +1,6 @@
 'use strict'
-const { Model } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
+
 module.exports = (sequelize, DataTypes) => {
 	class Product extends Model {
 		/**
@@ -8,12 +9,14 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			// define association here
+			// Define association with CartItem
 			Product.hasMany(models.CartItem, {
-				foreignKey: 'product_id', // 對應 CartItem 的 product_id
+				foreignKey: 'product_id',
 			})
 		}
 	}
+
+	// Set up the Product model and define attributes
 	Product.init(
 		{
 			productId: DataTypes.STRING,
@@ -34,7 +37,9 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			sequelize,
 			modelName: 'Product',
+			indexes: [{ fields: ['name'] }, { fields: ['type'] }, { fields: ['status'] }],
 		},
 	)
+
 	return Product
 }
