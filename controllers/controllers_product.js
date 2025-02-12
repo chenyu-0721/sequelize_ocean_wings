@@ -8,22 +8,23 @@ exports.getProduct = async (req, res) => {
 		const limit = parseInt(req.query.limit) || 10
 
 		const { name, type, status } = req.query
-
 		const offset = (page - 1) * limit
-		const totalCount = await Product.count()
-		const totalPages = Math.ceil(totalCount / limit)
 
+		// 優化：使用 findAndCountAll 來合併統計與查詢
 		const whereClause = {}
 		if (name) whereClause.name = { [Op.like]: `%${name}%` }
 		if (type) whereClause.type = type
 		if (status) whereClause.status = status
 
-		const products = await Product.findAll({
+		const result = await Product.findAndCountAll({
 			limit,
 			offset,
 			order: [['id', 'ASC']],
 			where: whereClause,
 		})
+
+		const { rows: products, count: totalCount } = result
+		const totalPages = Math.ceil(totalCount / limit)
 
 		res.status(200).json({ data: products, totalCount, totalPages })
 	} catch (error) {
