@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Station.hasMany(models.WeatherData, {
 				foreignKey: 'StationID',
-				sourceKey: 'StationID', // Added to match your primary key
+				sourceKey: 'StationID',
 				as: 'weatherData',
 			})
 		}

@@ -4,7 +4,7 @@ const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
 	class Order extends Model {
 		static associate(models) {
-			// 關聯 User：一個 User 可以有多個 Order
+			// 關聯 User：一個 Order 屬於一個 User
 			Order.belongsTo(models.User, {
 				foreignKey: 'user_id',
 				onDelete: 'CASCADE',

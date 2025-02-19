@@ -27,12 +27,10 @@ exports.getUser = async (req, res, next) => {
 exports.getUserAuth = async (req, res, next) => {
 	// #swagger.tags = ['user']
 	try {
-		// 檢查 req.user 是否存在，表示用戶已經登入
 		if (!req.user) {
 			return next(appError(401, '請先登入', next))
 		}
 
-		// 回傳當前用戶的資料
 		res.status(200).json({
 			status: 'success',
 			user: {

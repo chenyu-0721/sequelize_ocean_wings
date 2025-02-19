@@ -11,12 +11,13 @@ module.exports = {
 			},
 			StationID: {
 				type: Sequelize.STRING,
+				allowNull: false,
 				references: {
-					model: 'Stations',
-					key: 'StationID',
+					model: 'Stations', // 參照 Stations 表
+					key: 'StationID', // 參照 Stations 的 StationID 欄位
 				},
-				onUpdate: 'CASCADE',
-				onDelete: 'SET NULL',
+				onUpdate: 'CASCADE', // 若 Stations 的 StationID 更新，這裡也會更新
+				onDelete: 'CASCADE', // 若 Stations 的資料被刪除，對應的 WeatherData 也會刪除
 			},
 			DataTime: {
 				type: Sequelize.DATE,

@@ -11,6 +11,8 @@ module.exports = {
 			},
 			StationID: {
 				type: Sequelize.STRING,
+				allowNull: false,
+				unique: true,
 			},
 			StationName: {
 				type: Sequelize.STRING,

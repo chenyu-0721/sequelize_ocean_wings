@@ -10,7 +10,6 @@ exports.getProduct = async (req, res) => {
 		const { name, type, status } = req.query
 		const offset = (page - 1) * limit
 
-		// 優化：使用 findAndCountAll 來合併統計與查詢
 		const whereClause = {}
 		if (name) whereClause.name = { [Op.like]: `%${name}%` }
 		if (type) whereClause.type = type

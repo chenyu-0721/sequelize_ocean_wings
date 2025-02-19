@@ -19,23 +19,39 @@ exports.getStation = async (req, res) => {
 			distinct: true,
 			limit,
 			offset,
-			order: [
-				['StationID', 'ASC'], // Optional: add default sorting
-			],
+			order: [['id', 'ASC']],
 		})
 
 		const totalPages = Math.ceil(count / limit)
 
+		// 進行資料過濾和結構整理
+		const simplifiedStations = stations.map(station => ({
+			id: station.id,
+			StationID: station.StationID,
+			StationName: station.StationName,
+			StationNameEN: station.StationNameEN,
+			weatherData: station.weatherData.map(data => ({
+				id: data.id,
+				StationID: data.StationID,
+				DataTime: data.DataTime,
+				WaveHeight: data.WaveHeight,
+				WaveDirection: data.WaveDirection,
+				WavePeriod: data.WavePeriod,
+				SeaTemperature: data.SeaTemperature,
+				WindSpeed: data.WindSpeed,
+				WindDirection: data.WindDirection,
+				WindScale: data.WindScale,
+			})),
+		}))
+
 		return res.status(200).json({
 			success: true,
 			data: {
-				stations,
-				pagination: {
-					totalCount: count,
-					totalPages,
-					currentPage: page,
-					limit,
-				},
+				stations: simplifiedStations,
+			},
+			pagination: {
+				totalPages,
+				currentPage: page,
 			},
 		})
 	} catch (error) {
