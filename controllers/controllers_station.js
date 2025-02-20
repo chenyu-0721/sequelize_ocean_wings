@@ -14,8 +14,10 @@ exports.getStation = async (req, res) => {
 					model: WeatherData,
 					as: 'weatherData',
 					required: false,
+					attributes: { exclude: ['StationID', 'createdAt', 'updatedAt'] },
 				},
 			],
+			attributes: ['id', 'StationID', 'StationName', 'StationNameEN'],
 			distinct: true,
 			limit,
 			offset,
@@ -24,30 +26,10 @@ exports.getStation = async (req, res) => {
 
 		const totalPages = Math.ceil(count / limit)
 
-		// 進行資料過濾和結構整理
-		const simplifiedStations = stations.map(station => ({
-			id: station.id,
-			StationID: station.StationID,
-			StationName: station.StationName,
-			StationNameEN: station.StationNameEN,
-			weatherData: station.weatherData.map(data => ({
-				id: data.id,
-				StationID: data.StationID,
-				DataTime: data.DataTime,
-				WaveHeight: data.WaveHeight,
-				WaveDirection: data.WaveDirection,
-				WavePeriod: data.WavePeriod,
-				SeaTemperature: data.SeaTemperature,
-				WindSpeed: data.WindSpeed,
-				WindDirection: data.WindDirection,
-				WindScale: data.WindScale,
-			})),
-		}))
-
 		return res.status(200).json({
 			success: true,
 			data: {
-				stations: simplifiedStations,
+				stations,
 			},
 			pagination: {
 				totalPages,
@@ -75,14 +57,20 @@ exports.getOneStation = async (req, res) => {
 					model: WeatherData,
 					as: 'weatherData',
 					required: false,
+					attributes: ['id', 'StationID', 'DataTime', 'WaveHeight', 'WaveDirection', 'WavePeriod', 'SeaTemperature', 'WindSpeed', 'WindDirection', 'WindScale'],
 				},
 			],
-			where: { id: id },
+			attributes: ['id', 'StationID', 'StationName', 'StationNameEN'],
+			where: { id },
 			distinct: true,
 			order: [['StationID', 'ASC']],
 		})
 
-		res.status(200).json({ data: wave })
+		if (!wave) {
+			return res.status(404).json({ success: false, message: 'Station not found' })
+		}
+
+		return res.status(200).json({ success: true, data: wave })
 	} catch (error) {
 		console.error('Error in getOneStation:', error)
 		return res.status(500).json({

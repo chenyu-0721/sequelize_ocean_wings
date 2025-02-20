@@ -9,6 +9,6 @@ router.post('/', ctrl_product.createProduct)
 
 router.put('/:id', ctrl_product.updateProduct)
 
-router.delete('/:id', ctrl_product.deleteProduct)
+router.delete('/', ctrl_product.deleteProduct)
 
 module.exports = router

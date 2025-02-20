@@ -79,13 +79,14 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
 	try {
-		// #swagger.tags = ['Product']
-		const id = parseInt(req.params.id)
-		const product = await Product.findByPk(id)
-		if (!product) {
-			return res.status(404).json({ message: '商品不存在' })
+		const ids = req.body.ids
+
+		await Product.destroy({ where: { id: { [Op.in]: ids } } })
+
+		const products = await Product.findAll({ where: { id: { [Op.in]: ids } } })
+		if (products.length === 0) {
+			return res.status(404).json({ message: '部分商品不存在或已刪除' })
 		}
-		await product.destroy()
 
 		res.status(200).json({ message: '刪除成功' })
 	} catch (error) {
