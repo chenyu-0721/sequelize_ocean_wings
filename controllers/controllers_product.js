@@ -81,14 +81,20 @@ exports.deleteProduct = async (req, res) => {
 	try {
 		const ids = req.body.ids
 
-		await Product.destroy({ where: { id: { [Op.in]: ids } } })
+		// 檢查 ids 是否為陣列且不為空
+		if (!Array.isArray(ids) || ids.length === 0) {
+			return res.status(400).json({ message: '請提供有效的商品 ID 列表' })
+		}
 
-		const products = await Product.findAll({ where: { id: { [Op.in]: ids } } })
-		if (products.length === 0) {
+		// 刪除指定的商品
+		const deleteCount = await Product.destroy({ where: { id: { [Op.in]: ids } } })
+
+		// 檢查是否有商品被刪除
+		if (deleteCount === 0) {
 			return res.status(404).json({ message: '部分商品不存在或已刪除' })
 		}
 
-		res.status(200).json({ message: '刪除成功' })
+		res.status(200).json({ message: '刪除成功', deletedCount: deleteCount })
 	} catch (error) {
 		res.status(500).json({ message: '商品刪除失敗', error: error.message })
 	}
