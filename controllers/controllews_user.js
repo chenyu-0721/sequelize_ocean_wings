@@ -121,37 +121,21 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.sign_up = handleErrorAsync(async (req, res, next) => {
 	try {
-		/*	#swagger.tags = ['User']
+		/*	#swagger.tags = ['Authentication']
 				#swagger.description = '註冊(密碼長度必須大於8個字元)' 
 
 			#swagger.summary = '註冊(密碼長度必須大於8個字元)'
 
-			#swagger.parameters['email'] = {
-				in: 'path',
-				description: '電子郵件',
+			#swagger.parameters['body'] = {
+				in: 'body',
+				description: '註冊',
 				required: true,
-				type: 'string'
-			}
-
-			#swagger.parameters['password'] = {
-				in: 'path',
-				description: '密碼',
-				required: true,
-				type: 'string'
-			}
-
-			#swagger.parameters['confirmPassword'] = {
-				in: 'path',
-				description: '確認密碼',
-				required: true,
-				type: 'string'
-			}
-
-			#swagger.parameters['name'] = {
-				in: 'path',
-				description: '名稱',
-				required: true,
-				type: 'string'
+				schema: {
+					"email": "Eaample@gmail.com",
+					"password": "string",
+					"confirmPassword": "string",
+					"name": "string"
+				}
 			}
 
 			#swagger.responses[200] = {
@@ -219,38 +203,35 @@ exports.sign_up = handleErrorAsync(async (req, res, next) => {
 })
 
 exports.sign_in = handleErrorAsync(async (req, res, next) => {
-	/*	#swagger.tags = ['User']
-			#swagger.description = '登入' 
+	/*	
+		#swagger.tags = ['Authentication']
+            #swagger.description = '登入' 
 
-		#swagger.summary = '登入'
+        #swagger.summary = '登入'
 
-		#swagger.parameters['email'] = {
-			in: 'path',
-			description: '電子郵件',
+        #swagger.parameters['body'] = {
+			in: 'body',
+			description: '登入所需的帳號密碼',
 			required: true,
-			type: 'string'
-		}
-
-		#swagger.parameters['password'] = {
-			in: 'path',
-			description: '密碼',
-			required: true,
-			type: 'string'
-		}
-
-		#swagger.responses[200] = {
-			schema:{
-				user: {
-					name: '',
-					role: '',
-				},
+			schema: {
+				email: 'test@example.com',
+				password: '123456'
 			}
-		} 
-		
-		#swagger.responses[403] = {
-			description: '登入失敗'
-		} 
-	*/
+		}
+
+        #swagger.responses[200] = {
+            schema:{
+                user: {
+                    name: '',
+                    role: '',
+                },
+            }
+        } 
+        
+        #swagger.responses[403] = {
+            description: '登入失敗'
+        } 
+    */
 
 	const { email, password } = req.body
 	if (!email || !password) {
@@ -275,7 +256,7 @@ exports.sign_in = handleErrorAsync(async (req, res, next) => {
 })
 
 exports.logout = handleErrorAsync(async (req, res, next) => {
-	/*	#swagger.tags = ['User']
+	/*	#swagger.tags = ['Authentication']
 			#swagger.description = '登出' 
 
 		#swagger.summary = '登出'

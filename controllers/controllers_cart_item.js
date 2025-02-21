@@ -2,7 +2,34 @@ const { CartItem, Product, User } = require('../models')
 
 exports.getCartItems = async (req, res, next) => {
 	try {
-		// #swagger.tags = ['cart']
+		/*
+			#swagger.tags = ['Cart']
+				#swagger.description = '取得購物車資訊' 
+
+			#swagger.summary = '取得購物車資訊'
+
+			#swagger.responses[200] = {
+				schema:{
+					data: [
+						{
+							productId: 1,
+							name: '商品名稱',
+							quantity: 1,
+							price: 100,
+						}
+					]
+				}
+			} 
+
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+			
+			#swagger.responses[403] = {
+				description: '取得失敗'
+			} 
+		*/
+
 		const userId = req.user.id
 
 		// 取得該使用者的購物車項目
@@ -31,7 +58,49 @@ exports.getCartItems = async (req, res, next) => {
 
 exports.addToCart = async (req, res, next) => {
 	try {
-		// #swagger.tags = ['cart']
+		/*
+			#swagger.tags = ['Cart']
+				#swagger.description = '新增商品至購物車' 
+
+			#swagger.summary = '新增商品至購物車'
+
+			#swagger.parameters['productId'] = {
+				type: 'integer',
+                description: '商品 ID',
+                in: 'path',
+                required: true,
+            }
+
+			#swagger.parameters['body'] = {
+				in: 'body',
+				description: '數量',
+				required: true,
+				schema: {
+					quantity: '1',
+				}
+			}
+
+			#swagger.responses[200] = {
+				schema:{
+					message: '成功加入商品',
+                    data: {
+                        productId: 1,
+                        name: '商品名稱',
+                        quantity: 1,
+                        price: 100,
+                    },
+				}
+			} 
+
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+			
+			#swagger.responses[403] = {
+				description: '加入失敗'
+			} 
+		*/
+
 		const userId = req.user.id
 		const productId = req.params.productId
 		const quantity = parseInt(req.body.quantity)
@@ -72,7 +141,34 @@ exports.addToCart = async (req, res, next) => {
 
 exports.deleteCartItem = async (req, res) => {
 	try {
-		// #swagger.tags = ['cart']
+		/*
+			#swagger.tags = ['Cart']
+				#swagger.description = '刪除購物車商品(單筆)' 
+
+			#swagger.summary = '刪除購物車商品(單筆)'
+
+			#swagger.parameters['productId'] = {
+				type: 'integer',
+                description: '商品 ID',
+                in: 'path',
+                required: true,
+            }
+
+			#swagger.responses[200] = {
+				schema:{
+					message: '刪除成功',
+				}
+			} 
+
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+			
+			#swagger.responses[403] = {
+				description: '刪除失敗'
+			} 
+		*/
+
 		const userId = req.user.id
 		const productId = req.params.productId
 
@@ -92,7 +188,39 @@ exports.deleteCartItem = async (req, res) => {
 
 exports.updateCartItemQuantity = async (req, res) => {
 	try {
-		// #swagger.tags = ['cart']
+		/*
+			#swagger.tags = ['Cart']
+				#swagger.description = '編輯購物車商品數量(單筆)' 
+
+			#swagger.summary = '編輯購物車商品數量(單筆)'
+
+			#swagger.parameters['productId'] = {
+				type: 'integer',
+                description: '商品 ID',
+                in: 'path',
+                required: true,
+            }
+
+			#swagger.responses[200] = {
+				schema:{
+					data: {
+						productId: 1,
+						name: '商品名稱',
+						quantity: 1,
+						price: 100,
+					},
+				}
+			} 
+
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+			
+			#swagger.responses[403] = {
+				description: '更新失敗'
+			} 
+		*/
+
 		const userId = req.user.id
 		const productId = req.params.productId
 		const quantity = parseInt(req.body.quantity)

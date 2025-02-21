@@ -5,7 +5,27 @@ const { Order, OrderItem, CartItem, Product } = require('../models')
  */
 exports.checkout = async (req, res) => {
 	try {
-		// #swagger.tags = ['order']
+		/*	
+			#swagger.tags = ['Order']
+				#swagger.description = '送出訂單' 
+
+			#swagger.summary = '送出訂單'
+
+			#swagger.responses[200] = {
+				schema:{
+					message: '結帳成功',
+				}
+			} 
+
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+			
+			#swagger.responses[403] = {
+				description: '結帳失敗'
+			} 
+		*/
+
 		const userId = req.user.id // 假設從 JWT 或 session 取得 user_id
 
 		// 取得購物車商品
@@ -77,8 +97,23 @@ exports.checkout = async (req, res) => {
  * 📜 取得歷史訂單 API
  */
 exports.history = async (req, res) => {
-	// #swagger.tags = ['order']
 	try {
+		/*	#swagger.tags = ['Order']
+			#swagger.description = '取得歷史訂單' 
+
+			#swagger.summary = '取得歷史訂單'
+
+		
+			
+			#swagger.responses[401] = {
+				description: '尚未登入'
+			} 
+
+			#swagger.responses[403] = {
+				description: '取得失敗'
+			} 
+		*/
+
 		const userId = req.user.id
 
 		// 查詢訂單 + 訂單細節
