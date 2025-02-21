@@ -10,11 +10,12 @@ exports.uploadImage = async (req, res, next) => {
 		#swagger.summary = '上傳照片'
 
 		#swagger.parameters['file'] = {
-			in: 'path',
+			in: 'formData',  	
 			description: '圖片檔',
 			required: true,
 			type: 'file'
-		} 
+		}
+
 		
 		#swagger.responses[200] = {
 			schema:
