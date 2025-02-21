@@ -1,10 +1,8 @@
 const express = require('express')
-const { isAuth } = require('../statusHandle/auth')
 const ctrl_users = require('../controllers/controllews_user')
 const router = express.Router()
 
 router.get('/', ctrl_users.getUser)
-router.get('/refresh', isAuth, ctrl_users.getUserAuth)
 
 router.delete('/:id', ctrl_users.deleteUser)
 

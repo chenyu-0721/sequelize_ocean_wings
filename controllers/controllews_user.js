@@ -8,15 +8,36 @@ const { generateSendJWT, logout } = require('../statusHandle/auth')
 const { app } = require('firebase-admin')
 
 exports.getUser = async (req, res, next) => {
-	// #swagger.tags = ['user']
 	try {
+		/*	#swagger.tags = ['User']
+				#swagger.description = '取得所有使用者' 
+
+			#swagger.summary = '取得所有使用者'
+
+			#swagger.responses[200] = {
+				schema:{
+					users:{
+						"id": 1,
+						"email": "Example@gmail.com",
+						"name": "string",
+						"role": "",
+						"createdAt": "2025-02-10T05:37:21.000Z",
+						"updatedAt": "2025-02-10T05:37:21.000Z"
+					}
+				}
+			} 
+		
+			#swagger.responses[403] = {
+				description: '查無資料'
+			} 
+		*/
+
 		const users = await User.findAll({
 			attributes: { exclude: ['password', 'confirmPassword'] },
 		})
 
 		res.status(200).json({
-			status: 'success',
-			data: users,
+			users: users,
 		})
 	} catch (error) {
 		res.status(500).json({ status: 'error' })
@@ -45,8 +66,38 @@ exports.getUserAuth = async (req, res, next) => {
 }
 
 exports.deleteUser = async (req, res, next) => {
-	// #swagger.tags = ['user']
 	try {
+		/*
+			#swagger.tags = ['User']
+				#swagger.description = '刪除使用者(單筆)'
+
+			#swagger.summary = '刪除使用者(單筆)'
+
+			#swagger.parameters['id'] = {
+				in: 'path',
+                description: '使用者 ID',
+                required: true,
+                type: 'string'
+            }
+		
+			#swagger.responses[200] = {
+				description: '刪除成功'
+			}
+
+			#swagger.responses[400] = {
+				description: '請提供有效的使用者 ID'
+			}
+
+			#swagger.responses[404] = {
+				description: '使用者不存在或已刪除'
+			}
+
+			#swagger.responses[500] = {
+				description: '使用者刪除失敗'
+			}
+				
+		*/
+
 		const userId = req.params.id
 
 		const user = await User.findByPk(userId)
@@ -69,26 +120,72 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 exports.sign_up = handleErrorAsync(async (req, res, next) => {
-	// #swagger.tags = ['user']
-	let { email, password, confirmPassword, name } = req.body
-
-	if (!email || !password || !confirmPassword || !name) {
-		return next(appError(400, '請填寫所有必填欄位'))
-	}
-
-	if (password !== confirmPassword) {
-		return next(appError(400, '兩次輸入的密碼不一致'))
-	}
-
-	if (!validator.isLength(password, { min: 8 })) {
-		return next(appError(400, '密碼長度必須大於8個字元'))
-	}
-
-	if (!validator.isEmail(email)) {
-		return next(appError(400, '電子郵件格式不正確'))
-	}
-
 	try {
+		/*	#swagger.tags = ['User']
+				#swagger.description = '註冊(密碼長度必須大於8個字元)' 
+
+			#swagger.summary = '註冊(密碼長度必須大於8個字元)'
+
+			#swagger.parameters['email'] = {
+				in: 'path',
+				description: '電子郵件',
+				required: true,
+				type: 'string'
+			}
+
+			#swagger.parameters['password'] = {
+				in: 'path',
+				description: '密碼',
+				required: true,
+				type: 'string'
+			}
+
+			#swagger.parameters['confirmPassword'] = {
+				in: 'path',
+				description: '確認密碼',
+				required: true,
+				type: 'string'
+			}
+
+			#swagger.parameters['name'] = {
+				in: 'path',
+				description: '名稱',
+				required: true,
+				type: 'string'
+			}
+
+			#swagger.responses[200] = {
+				schema:{
+					"email": "Eaample@gmail.com",
+					"password": "string",
+					"confirmPassword": "string",
+					"name": "string"
+				}
+			} 
+		
+			#swagger.responses[403] = {
+				description: '登入失敗'
+			} 
+		*/
+
+		let { email, password, confirmPassword, name } = req.params
+
+		if (!email || !password || !confirmPassword || !name) {
+			return next(appError(400, '請填寫所有必填欄位'))
+		}
+
+		if (password !== confirmPassword) {
+			return next(appError(400, '兩次輸入的密碼不一致'))
+		}
+
+		if (!validator.isLength(password, { min: 8 })) {
+			return next(appError(400, '密碼長度必須大於8個字元'))
+		}
+
+		if (!validator.isEmail(email)) {
+			return next(appError(400, '電子郵件格式不正確'))
+		}
+
 		const existingUser = await User.findOne({ where: { email } })
 		if (existingUser) {
 			return next(appError(400, '此電子郵件已被註冊'))
@@ -122,7 +219,39 @@ exports.sign_up = handleErrorAsync(async (req, res, next) => {
 })
 
 exports.sign_in = handleErrorAsync(async (req, res, next) => {
-	// #swagger.tags = ['user']
+	/*	#swagger.tags = ['User']
+			#swagger.description = '登入' 
+
+		#swagger.summary = '登入'
+
+		#swagger.parameters['email'] = {
+			in: 'path',
+			description: '電子郵件',
+			required: true,
+			type: 'string'
+		}
+
+		#swagger.parameters['password'] = {
+			in: 'path',
+			description: '密碼',
+			required: true,
+			type: 'string'
+		}
+
+		#swagger.responses[200] = {
+			schema:{
+				user: {
+					name: '',
+					role: '',
+				},
+			}
+		} 
+		
+		#swagger.responses[403] = {
+			description: '登入失敗'
+		} 
+	*/
+
 	const { email, password } = req.body
 	if (!email || !password) {
 		return next(appError(400, '帳號密碼不可為空', next))
@@ -146,7 +275,22 @@ exports.sign_in = handleErrorAsync(async (req, res, next) => {
 })
 
 exports.logout = handleErrorAsync(async (req, res, next) => {
-	// #swagger.tags = ['user']
+	/*	#swagger.tags = ['User']
+			#swagger.description = '登出' 
+
+		#swagger.summary = '登出'
+
+		#swagger.responses[200] = {
+			schema:{
+				message: '登出成功'
+			}
+		} 
+		
+		#swagger.responses[403] = {
+			description: '登出成功'
+		} 
+	*/
+
 	logout(res)
 	res.status(200).json({ message: '登出成功' })
 })

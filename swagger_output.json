@@ -1,1143 +1,1293 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"version": "1.0.0",
-		"title": "REST API",
-		"description": ""
-	},
-	"host": "ocean-wings.onrender.com",
-	"basePath": "/",
-	"schemes": ["https"],
-	"paths": {
-		"/api/products/": {
-			"get": {
-				"tags": ["Product"],
-				"summary": "取得衝浪板商品內容",
-				"description": "取得衝浪板商品內容",
-				"parameters": [
-					{
-						"name": "page",
-						"in": "query",
-						"type": "string"
-					},
-					{
-						"name": "limit",
-						"in": "query",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"in": "query",
-						"type": "string"
-					},
-					{
-						"name": "type",
-						"in": "query",
-						"type": "string"
-					},
-					{
-						"name": "status",
-						"in": "query",
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string",
-										"example": "integer"
-									},
-									"productId": {
-										"type": "string",
-										"example": "string"
-									},
-									"name": {
-										"type": "string",
-										"example": "string"
-									},
-									"type": {
-										"type": "string",
-										"example": "string"
-									},
-									"grade": {
-										"type": "string",
-										"example": "string"
-									},
-									"price": {
-										"type": "string",
-										"example": "integer"
-									},
-									"quantity": {
-										"type": "string",
-										"example": "integer"
-									},
-									"status": {
-										"type": "boolean",
-										"example": false
-									},
-									"hasDiscount": {
-										"type": "boolean",
-										"example": false
-									},
-									"imageUrl": {
-										"type": "string",
-										"example": "string"
-									},
-									"description": {
-										"type": "string",
-										"example": "string"
-									},
-									"length": {
-										"type": "string",
-										"example": "integer"
-									},
-									"width": {
-										"type": "string",
-										"example": "integer"
-									},
-									"thickness": {
-										"type": "string",
-										"example": "integer"
-									},
-									"buoyancy": {
-										"type": "string",
-										"example": "integer"
-									},
-									"createdAt": {
-										"type": "string",
-										"example": "2025-02-10T05:35:04.000Z"
-									},
-									"updatedAt": {
-										"type": "string",
-										"example": "2025-02-10T05:35:04.000Z"
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "查無資料"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			},
-			"post": {
-				"tags": ["Product"],
-				"summary": "新增衝浪板商品(一筆)",
-				"description": "新增衝浪板商品(一筆)",
-				"responses": {
-					"201": {
-						"description": "Created",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"productId": {
-									"type": "string",
-									"example": "string"
-								},
-								"name": {
-									"type": "string",
-									"example": "string"
-								},
-								"type": {
-									"type": "string",
-									"example": "string"
-								},
-								"grade": {
-									"type": "string",
-									"example": "string"
-								},
-								"price": {
-									"type": "string",
-									"example": "integer"
-								},
-								"quantity": {
-									"type": "string",
-									"example": "integer"
-								},
-								"status": {
-									"type": "boolean",
-									"example": false
-								},
-								"hasDiscount": {
-									"type": "boolean",
-									"example": false
-								},
-								"imageUrl": {
-									"type": "string",
-									"example": "string"
-								},
-								"description": {
-									"type": "string",
-									"example": "string"
-								},
-								"length": {
-									"type": "string",
-									"example": "integer"
-								},
-								"width": {
-									"type": "string",
-									"example": "integer"
-								},
-								"thickness": {
-									"type": "string",
-									"example": "integer"
-								},
-								"buoyancy": {
-									"type": "string",
-									"example": "integer"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"500": {
-						"description": "商品新增失敗"
-					}
-				}
-			},
-			"delete": {
-				"tags": ["Product"],
-				"summary": "刪除衝浪板商品(多筆)",
-				"description": "刪除衝浪板商品(多筆)",
-				"parameters": [
-					{
-						"name": "ids",
-						"in": "path",
-						"description": "商品 ID",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"ids": {
-									"example": "any"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "刪除成功"
-					},
-					"400": {
-						"description": "請提供有效的商品 ID 列表"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "部分商品不存在或已刪除"
-					},
-					"500": {
-						"description": "商品刪除失敗"
-					}
-				}
-			}
-		},
-		"/api/products/{id}": {
-			"get": {
-				"tags": ["Product"],
-				"summary": "取得衝浪板單一商品內容",
-				"description": "取得衝浪板單一商品內容",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "商品 ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"id": {
-									"type": "string",
-									"example": "integer"
-								},
-								"productId": {
-									"type": "string",
-									"example": "string"
-								},
-								"name": {
-									"type": "string",
-									"example": "string"
-								},
-								"type": {
-									"type": "string",
-									"example": "string"
-								},
-								"grade": {
-									"type": "string",
-									"example": "string"
-								},
-								"price": {
-									"type": "string",
-									"example": "integer"
-								},
-								"quantity": {
-									"type": "string",
-									"example": "integer"
-								},
-								"status": {
-									"type": "boolean",
-									"example": false
-								},
-								"hasDiscount": {
-									"type": "boolean",
-									"example": false
-								},
-								"imageUrl": {
-									"type": "string",
-									"example": "string"
-								},
-								"description": {
-									"type": "string",
-									"example": "string"
-								},
-								"length": {
-									"type": "string",
-									"example": "integer"
-								},
-								"width": {
-									"type": "string",
-									"example": "integer"
-								},
-								"thickness": {
-									"type": "string",
-									"example": "integer"
-								},
-								"buoyancy": {
-									"type": "string",
-									"example": "integer"
-								},
-								"createdAt": {
-									"type": "string",
-									"example": "2025-02-10T05:35:04.000Z"
-								},
-								"updatedAt": {
-									"type": "string",
-									"example": "2025-02-10T05:35:04.000Z"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			},
-			"put": {
-				"tags": ["Product"],
-				"summary": "更新衝浪板商品(一筆)",
-				"description": "更新衝浪板商品(一筆)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "商品 ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"productId": {
-									"type": "string",
-									"example": "string"
-								},
-								"name": {
-									"type": "string",
-									"example": "string"
-								},
-								"type": {
-									"type": "string",
-									"example": "string"
-								},
-								"grade": {
-									"type": "string",
-									"example": "string"
-								},
-								"price": {
-									"type": "string",
-									"example": "integer"
-								},
-								"quantity": {
-									"type": "string",
-									"example": "integer"
-								},
-								"status": {
-									"type": "boolean",
-									"example": false
-								},
-								"hasDiscount": {
-									"type": "boolean",
-									"example": false
-								},
-								"imageUrl": {
-									"type": "string",
-									"example": "string"
-								},
-								"description": {
-									"type": "string",
-									"example": "string"
-								},
-								"length": {
-									"type": "string",
-									"example": "integer"
-								},
-								"width": {
-									"type": "string",
-									"example": "integer"
-								},
-								"thickness": {
-									"type": "string",
-									"example": "integer"
-								},
-								"buoyancy": {
-									"type": "string",
-									"example": "integer"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "商品不存在"
-					},
-					"500": {
-						"description": "商品更新失敗"
-					}
-				}
-			}
-		},
-		"/upload/": {
-			"post": {
-				"tags": ["Upload"],
-				"summary": "上傳照片",
-				"description": "上傳照片",
-				"parameters": [
-					{
-						"name": "file",
-						"in": "path",
-						"description": "圖片檔",
-						"required": true,
-						"type": "file"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"url": {
-									"type": "string",
-									"example": "string"
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/user/": {
-			"get": {
-				"tags": ["user"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/user/refresh": {
-			"get": {
-				"tags": ["user"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					}
-				}
-			}
-		},
-		"/api/user/{id}": {
-			"delete": {
-				"tags": ["user"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/user/sign_up": {
-			"post": {
-				"tags": ["user"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"email": {
-									"example": "any"
-								},
-								"password": {
-									"example": "any"
-								},
-								"confirmPassword": {
-									"example": "any"
-								},
-								"name": {
-									"example": "any"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					}
-				}
-			}
-		},
-		"/api/user/sign_in": {
-			"post": {
-				"tags": ["user"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"email": {
-									"example": "any"
-								},
-								"password": {
-									"example": "any"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"403": {
-						"description": "Forbidden"
-					}
-				}
-			}
-		},
-		"/api/user/logout": {
-			"post": {
-				"tags": ["user"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					}
-				}
-			}
-		},
-		"/api/cartItem/": {
-			"get": {
-				"tags": ["cart"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					}
-				}
-			}
-		},
-		"/api/cartItem/{productId}": {
-			"post": {
-				"tags": ["cart"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "productId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"quantity": {
-									"example": "any"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"201": {
-						"description": "Created"
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			},
-			"delete": {
-				"tags": ["cart"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "productId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					}
-				],
-				"responses": {
-					"201": {
-						"description": "Created"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			},
-			"put": {
-				"tags": ["cart"],
-				"description": "",
-				"parameters": [
-					{
-						"name": "productId",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "body",
-						"in": "body",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"quantity": {
-									"example": "any"
-								}
-							}
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"401": {
-						"description": "Unauthorized"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/order/checkout": {
-			"post": {
-				"tags": ["order"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"400": {
-						"description": "Bad Request"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/order/history": {
-			"get": {
-				"tags": ["order"],
-				"description": "",
-				"responses": {
-					"200": {
-						"description": "OK"
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/wave/": {
-			"get": {
-				"tags": ["Waves"],
-				"summary": "取得浪況分析資訊",
-				"description": "取得浪況分析資訊",
-				"parameters": [
-					{
-						"name": "page",
-						"in": "query",
-						"type": "string"
-					},
-					{
-						"name": "limit",
-						"in": "query",
-						"type": "string"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"data": {
-									"type": "object",
-									"properties": {
-										"stations": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"id": {
-														"type": "number",
-														"example": 1
-													},
-													"StationID": {
-														"type": "string",
-														"example": ""
-													},
-													"StationName": {
-														"type": "string",
-														"example": ""
-													},
-													"StationNameEN": {
-														"type": "string",
-														"example": ""
-													},
-													"weatherData": {
-														"type": "array",
-														"items": {
-															"type": "object",
-															"properties": {
-																"id": {
-																	"type": "number",
-																	"example": 1
-																},
-																"StationID": {
-																	"type": "string",
-																	"example": ""
-																},
-																"TideHeight": {
-																	"type": "string",
-																	"example": ""
-																},
-																"TideLevel": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveHeight": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WavePeriod": {
-																	"type": "string",
-																	"example": ""
-																},
-																"SeaTemperature": {
-																	"type": "string",
-																	"example": ""
-																},
-																"StationPressure": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindScale": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"MaximumWindSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"MaximumWindScale": {
-																	"type": "string",
-																	"example": ""
-																},
-																"LayerNumber": {},
-																"CurrentDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentSpeedInKnots": {
-																	"type": "string",
-																	"example": ""
-																}
-															}
-														}
-													}
-												}
-											}
-										},
-										"pagination": {
-											"type": "object",
-											"properties": {
-												"totalPages": {
-													"type": "string",
-													"example": ""
-												},
-												"currentPage": {
-													"type": "string",
-													"example": ""
-												}
-											}
-										}
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		},
-		"/api/wave/{id}": {
-			"get": {
-				"tags": ["Waves"],
-				"summary": "取得浪況分析資訊(一筆)",
-				"description": "取得浪況分析資訊(一筆)",
-				"parameters": [
-					{
-						"name": "id",
-						"in": "path",
-						"required": true,
-						"type": "integer",
-						"description": "站點 ID"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"type": "object",
-							"properties": {
-								"data": {
-									"type": "object",
-									"properties": {
-										"stations": {
-											"type": "array",
-											"items": {
-												"type": "object",
-												"properties": {
-													"id": {
-														"type": "number",
-														"example": 1
-													},
-													"StationID": {
-														"type": "string",
-														"example": ""
-													},
-													"StationName": {
-														"type": "string",
-														"example": ""
-													},
-													"StationNameEN": {
-														"type": "string",
-														"example": ""
-													},
-													"weatherData": {
-														"type": "array",
-														"items": {
-															"type": "object",
-															"properties": {
-																"id": {
-																	"type": "number",
-																	"example": 1
-																},
-																"StationID": {
-																	"type": "string",
-																	"example": ""
-																},
-																"TideHeight": {
-																	"type": "string",
-																	"example": ""
-																},
-																"TideLevel": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveHeight": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WaveDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WavePeriod": {
-																	"type": "string",
-																	"example": ""
-																},
-																"SeaTemperature": {
-																	"type": "string",
-																	"example": ""
-																},
-																"StationPressure": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindScale": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"WindDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"MaximumWindSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"MaximumWindScale": {
-																	"type": "string",
-																	"example": ""
-																},
-																"LayerNumber": {},
-																"CurrentDirection": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentDirectionDescription": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentSpeed": {
-																	"type": "string",
-																	"example": ""
-																},
-																"CurrentSpeedInKnots": {
-																	"type": "string",
-																	"example": ""
-																}
-															}
-														}
-													}
-												}
-											}
-										},
-										"pagination": {
-											"type": "object",
-											"properties": {
-												"totalPages": {
-													"type": "string",
-													"example": ""
-												},
-												"currentPage": {
-													"type": "string",
-													"example": ""
-												}
-											}
-										}
-									}
-								}
-							},
-							"xml": {
-								"name": "main"
-							}
-						}
-					},
-					"403": {
-						"description": "Forbidden"
-					},
-					"404": {
-						"description": "Not Found"
-					},
-					"500": {
-						"description": "Internal Server Error"
-					}
-				}
-			}
-		}
-	}
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/products/": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "取得衝浪板商品內容",
+        "description": "取得衝浪板商品內容",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "productId": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "grade": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "price": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "quantity": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "hasDiscount": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "length": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "width": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "thickness": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "buoyancy": {
+                    "type": "string",
+                    "example": "integer"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2025-02-10T05:35:04.000Z"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2025-02-10T05:35:04.000Z"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "查無資料"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "新增衝浪板商品(一筆)",
+        "description": "新增衝浪板商品(一筆)",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "grade": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "quantity": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "hasDiscount": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "length": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "width": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "thickness": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "buoyancy": {
+                  "type": "string",
+                  "example": "integer"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "商品新增失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "刪除衝浪板商品(多筆)",
+        "description": "刪除衝浪板商品(多筆)",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "description": "商品 ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功"
+          },
+          "400": {
+            "description": "請提供有效的商品 ID 列表"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "部分商品不存在或已刪除"
+          },
+          "500": {
+            "description": "商品刪除失敗"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "取得衝浪板單一商品內容",
+        "description": "取得衝浪板單一商品內容",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "productId": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "grade": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "quantity": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "hasDiscount": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "length": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "width": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "thickness": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "buoyancy": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2025-02-10T05:35:04.000Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2025-02-10T05:35:04.000Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "更新衝浪板商品(一筆)",
+        "description": "更新衝浪板商品(一筆)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "商品 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "grade": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "quantity": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "hasDiscount": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "imageUrl": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "length": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "width": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "thickness": {
+                  "type": "string",
+                  "example": "integer"
+                },
+                "buoyancy": {
+                  "type": "string",
+                  "example": "integer"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "商品不存在"
+          },
+          "500": {
+            "description": "商品更新失敗"
+          }
+        }
+      }
+    },
+    "/upload/": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "summary": "上傳照片",
+        "description": "上傳照片",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "path",
+            "description": "圖片檔",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "取得所有使用者",
+        "description": "取得所有使用者",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "Example@gmail.com"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-02-10T05:37:21.000Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-02-10T05:37:21.000Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "查無資料"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "刪除使用者(單筆)",
+        "description": "刪除使用者(單筆)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "使用者 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功"
+          },
+          "400": {
+            "description": "請提供有效的使用者 ID"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "使用者不存在或已刪除"
+          },
+          "500": {
+            "description": "使用者刪除失敗"
+          }
+        }
+      }
+    },
+    "/api/user/sign_up": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "註冊(密碼長度必須大於8個字元)",
+        "description": "註冊(密碼長度必須大於8個字元)",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "電子郵件",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "path",
+            "description": "密碼",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "confirmPassword",
+            "in": "path",
+            "description": "確認密碼",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "名稱",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "Eaample@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "登入失敗"
+          }
+        }
+      }
+    },
+    "/api/user/sign_in": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "登入",
+        "description": "登入",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "電子郵件",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "path",
+            "description": "密碼",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "schema": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "role": {
+                      "type": "string",
+                      "example": ""
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "403": {
+            "description": "登入失敗"
+          }
+        }
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "登出",
+        "description": "登出",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "登出成功"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "登出成功"
+          }
+        }
+      }
+    },
+    "/api/cartItem/": {
+      "get": {
+        "tags": [
+          "cart"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/cartItem/{productId}": {
+      "post": {
+        "tags": [
+          "cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "cart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quantity": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/order/checkout": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/order/history": {
+      "get": {
+        "tags": [
+          "order"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/wave/": {
+      "get": {
+        "tags": [
+          "Waves"
+        ],
+        "summary": "取得浪況分析資訊",
+        "description": "取得浪況分析資訊",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "stations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "StationID": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "StationName": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "StationNameEN": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "weatherData": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number",
+                                  "example": 1
+                                },
+                                "StationID": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "TideHeight": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "TideLevel": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveHeight": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WavePeriod": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "SeaTemperature": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "StationPressure": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindScale": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "MaximumWindSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "MaximumWindScale": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "LayerNumber": {},
+                                "CurrentDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentSpeedInKnots": {
+                                  "type": "string",
+                                  "example": ""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "currentPage": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/wave/{id}": {
+      "get": {
+        "tags": [
+          "Waves"
+        ],
+        "summary": "取得浪況分析資訊(一筆)",
+        "description": "取得浪況分析資訊(一筆)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "站點 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "stations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "example": 1
+                          },
+                          "StationID": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "StationName": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "StationNameEN": {
+                            "type": "string",
+                            "example": ""
+                          },
+                          "weatherData": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number",
+                                  "example": 1
+                                },
+                                "StationID": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "TideHeight": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "TideLevel": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveHeight": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WaveDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WavePeriod": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "SeaTemperature": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "StationPressure": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindScale": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "WindDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "MaximumWindSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "MaximumWindScale": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "LayerNumber": {},
+                                "CurrentDirection": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentDirectionDescription": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentSpeed": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "CurrentSpeedInKnots": {
+                                  "type": "string",
+                                  "example": ""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "totalPages": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "currentPage": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
 }
