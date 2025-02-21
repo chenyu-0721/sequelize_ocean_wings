@@ -125,6 +125,31 @@ exports.createProduct = async (req, res) => {
 
 			#swagger.summary = '新增衝浪板商品(一筆)'
 
+			#swagger.parameters['body'] = {
+				in: 'body',
+				description: '新增商品資訊',
+				required: false,
+				schema: {
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+						"createdAt": "2025-02-10T05:35:04.000Z",
+                        "updatedAt": "2025-02-10T05:35:04.000Z"
+					}
+			}
+
+
 			#swagger.responses[201] = {
 				schema:
 					{
@@ -172,6 +197,30 @@ exports.updateProduct = async (req, res) => {
                 required: true,
                 type: 'integer'
             }
+
+			#swagger.parameters['body'] = {
+				in: 'body',
+				description: '新增商品資訊',
+				required: false,
+				schema: {
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+						"createdAt": "2025-02-10T05:35:04.000Z",
+                        "updatedAt": "2025-02-10T05:35:04.000Z"
+					}
+			}
 		
 			#swagger.responses[200] = {
 				schema:
@@ -223,13 +272,15 @@ exports.deleteProduct = async (req, res) => {
 
 			#swagger.summary = '刪除衝浪板商品(多筆)'
 
-			#swagger.parameters['ids'] = {
-				in: 'path',
-                description: '商品 ID',
-                required: true,
-                type: 'string'
-            }
-		
+			#swagger.parameters['body'] = {
+				in: 'body',
+				description: '刪除商品(陣列)',
+				required: true,
+				schema: {
+					ids: [1, 2, 3]
+				}
+			}
+
 			#swagger.responses[200] = {
 				description: '刪除成功'
 			}
