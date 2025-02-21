@@ -2,8 +2,58 @@ const { Station, WeatherData } = require('../models')
 const { Op } = require('sequelize')
 
 exports.getStation = async (req, res) => {
-	// #swagger.tags = ['wave']
 	try {
+		/*
+			#swagger.tags = ['Waves']
+				#swagger.description = '取得浪況分析資訊'
+
+			#swagger.summary = '取得浪況分析資訊'
+		
+			#swagger.responses[200] = {
+				schema: {
+					data: {
+						stations: [
+							{
+								id: 1,
+								StationID: '',
+								StationName: '',
+								StationNameEN: '',
+								weatherData: [
+									{
+										id: 1,
+										StationID: '',
+										TideHeight: '',
+										TideLevel: '',
+										WaveHeight: '',
+										WaveDirection: '',
+										WaveDirectionDescription: '',
+										WavePeriod: '',
+										SeaTemperature: '',
+										StationPressure: '',
+										WindSpeed: '',
+										WindScale: '',
+										WindDirection: '',
+										WindDirectionDescription: '',
+										MaximumWindSpeed: '',
+										MaximumWindScale: '',
+										LayerNumber: null,  
+										CurrentDirection: '',
+										CurrentDirectionDescription: '',
+										CurrentSpeed: '',
+										CurrentSpeedInKnots: ''
+									}
+								]
+							}
+						],
+						pagination: {  
+							totalPages: '',
+							currentPage: ''
+						}
+					}
+				}
+			}
+		*/
+
 		const page = parseInt(req.query.page) || 1
 		const limit = Math.min(parseInt(req.query.limit) || 10, 100)
 		const offset = (page - 1) * limit
@@ -27,7 +77,6 @@ exports.getStation = async (req, res) => {
 		const totalPages = Math.ceil(count / limit)
 
 		return res.status(200).json({
-			success: true,
 			data: {
 				stations,
 			},
@@ -47,8 +96,65 @@ exports.getStation = async (req, res) => {
 }
 
 exports.getOneStation = async (req, res) => {
-	// #swagger.tags = ['wave']
 	try {
+		/*
+			#swagger.tags = ['Waves']
+				#swagger.description = '取得浪況分析資訊(一筆)'
+
+			#swagger.summary = '取得浪況分析資訊(一筆)'
+
+			#swagger.parameters['id'] = {
+				in: 'path',
+				description: '站點 ID',
+				required: true,
+				type: 'integer'
+			}
+		
+			#swagger.responses[200] = {
+				schema: {
+					data: {
+						stations: [
+							{
+								id: 1,
+								StationID: '',
+								StationName: '',
+								StationNameEN: '',
+								weatherData: [
+									{
+										id: 1,
+										StationID: '',
+										TideHeight: '',
+										TideLevel: '',
+										WaveHeight: '',
+										WaveDirection: '',
+										WaveDirectionDescription: '',
+										WavePeriod: '',
+										SeaTemperature: '',
+										StationPressure: '',
+										WindSpeed: '',
+										WindScale: '',
+										WindDirection: '',
+										WindDirectionDescription: '',
+										MaximumWindSpeed: '',
+										MaximumWindScale: '',
+										LayerNumber: null,  
+										CurrentDirection: '',
+										CurrentDirectionDescription: '',
+										CurrentSpeed: '',
+										CurrentSpeedInKnots: ''
+									}
+								]
+							}
+						],
+						pagination: {  
+							totalPages: '',
+							currentPage: ''
+						}
+					}
+				}
+			}
+		*/
+
 		const id = req.params.id
 
 		const wave = await Station.findOne({

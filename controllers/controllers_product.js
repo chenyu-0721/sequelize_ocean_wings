@@ -3,7 +3,40 @@ const { Op } = require('sequelize')
 
 exports.getProduct = async (req, res) => {
 	try {
-		// #swagger.tags = ['Product']
+		/*	#swagger.tags = ['Product']
+				#swagger.description = '取得衝浪板商品內容' 
+
+			#swagger.summary = '取得衝浪板商品內容'
+
+			#swagger.responses[200] = {
+				schema:[
+					{
+						"id": 'integer',
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+						"createdAt": "2025-02-10T05:35:04.000Z",
+						"updatedAt": "2025-02-10T05:35:04.000Z"
+					}
+				]
+			} 
+		
+			#swagger.responses[403] = {
+				description: '查無資料'
+			} 
+		*/
+
 		const page = parseInt(req.query.page) || 1
 		const limit = parseInt(req.query.limit) || 10
 
@@ -33,7 +66,42 @@ exports.getProduct = async (req, res) => {
 
 exports.getOneProducts = async (req, res) => {
 	try {
-		// #swagger.tags = ['Product']
+		/*
+			#swagger.tags = ['Product']
+				#swagger.description = '取得衝浪板單一商品內容'
+
+			#swagger.summary = '取得衝浪板單一商品內容'
+
+			#swagger.parameters['id'] = {
+				in: 'path',
+				description: '商品 ID',
+				required: true,
+				type: 'integer'
+			} 
+		
+			#swagger.responses[200] = {
+				schema:
+					{
+						"id": 'integer',
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+						"createdAt": "2025-02-10T05:35:04.000Z",
+						"updatedAt": "2025-02-10T05:35:04.000Z"
+					}
+			}
+		*/
 
 		const id = parseInt(req.params.id)
 
@@ -51,7 +119,36 @@ exports.getOneProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
 	try {
-		// #swagger.tags = ['Product']
+		/*
+			#swagger.tags = ['Product']
+				#swagger.description = '新增衝浪板商品(一筆)'
+
+			#swagger.summary = '新增衝浪板商品(一筆)'
+
+			#swagger.responses[201] = {
+				schema:
+					{
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+					}
+			}
+
+			#swagger.responses[500] = {
+				description: '商品新增失敗'
+			}
+		*/
 
 		const product = await Product.create(req.body)
 
@@ -63,7 +160,48 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
 	try {
-		// #swagger.tags = ['Product']
+		/*
+			#swagger.tags = ['Product']
+				#swagger.description = '更新衝浪板商品(一筆)'
+
+			#swagger.summary = '更新衝浪板商品(一筆)'
+
+			#swagger.parameters['id'] = {
+				in: 'path',
+                description: '商品 ID',
+                required: true,
+                type: 'integer'
+            }
+		
+			#swagger.responses[200] = {
+				schema:
+					{
+						"productId": 'string',
+						"name": 'string',
+						"type": 'string',
+						"grade": 'string',
+						"price": 'integer',
+						"quantity": 'integer',
+						"status": false,
+						"hasDiscount": false,
+						"imageUrl": 'string',
+						"description": 'string',
+						"length": 'integer',
+						"width": 'integer',
+						"thickness": 'integer',
+						"buoyancy": 'integer',
+					}
+			}
+
+			#swagger.responses[404] = {
+				description: '商品不存在'
+			}
+
+			#swagger.responses[500] = {
+				description: '商品更新失敗'
+			}
+
+		*/
 
 		const id = parseInt(req.params.id)
 		const product = await Product.findByPk(id)
@@ -79,6 +217,37 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
 	try {
+		/*
+			#swagger.tags = ['Product']
+				#swagger.description = '刪除衝浪板商品(多筆)'
+
+			#swagger.summary = '刪除衝浪板商品(多筆)'
+
+			#swagger.parameters['ids'] = {
+				in: 'path',
+                description: '商品 ID',
+                required: true,
+                type: 'string'
+            }
+		
+			#swagger.responses[200] = {
+				description: '刪除成功'
+			}
+
+			#swagger.responses[400] = {
+				description: '請提供有效的商品 ID 列表'
+			}
+
+			#swagger.responses[404] = {
+				description: '部分商品不存在或已刪除'
+			}
+
+			#swagger.responses[500] = {
+				description: '商品刪除失敗'
+			}
+				
+		*/
+
 		const ids = req.body.ids
 
 		// 檢查 ids 是否為陣列且不為空

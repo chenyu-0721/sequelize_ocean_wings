@@ -3,7 +3,27 @@ const bucket = firebaseAdmin.storage().bucket()
 const { v4: uuidv4 } = require('uuid')
 
 exports.uploadImage = async (req, res, next) => {
-	// #swagger.tags = ['upload']
+	/*
+		#swagger.tags = ['Upload']
+			#swagger.description = '上傳照片'
+
+		#swagger.summary = '上傳照片'
+
+		#swagger.parameters['file'] = {
+			in: 'path',
+			description: '圖片檔',
+			required: true,
+			type: 'file'
+		} 
+		
+		#swagger.responses[200] = {
+			schema:
+				{
+					url: 'string'
+				}
+		}
+	*/
+
 	const file = req.file
 
 	if (!file) {
